@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
+    "dev": "tsnd --respawn --clear src/index.ts", 
+    "build": "rimraf ./dist && tsc", 
+    "start": "npm run build && node dist/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -15,5 +18,13 @@
     "url": "https://github.com/jaisonabdiel25/economic-control/issues"
   },
   "homepage": "https://github.com/jaisonabdiel25/economic-control#readme",
-  "description": ""
+  "description": "",
+  "devDependencies": {
+    "@types/node": "^22.10.1",
+    "typescript": "^5.7.2"
+  },
+  "dependencies": {
+    "rimraf": "^6.0.1",
+    "ts-node-dev": "^2.0.0"
+  }
 }
