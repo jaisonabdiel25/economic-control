@@ -1,7 +1,6 @@
 import { Request, Response } from "express"
-import { IMailService } from "../../infrastructure/services"
-import { CustomError } from "../../config/errors";
-
+import { IMailService } from "../../infrastructure/services/interface/IMailService";
+import { CustomError } from "../../config/CustomErrors";
 export class MailController {
 
     constructor(

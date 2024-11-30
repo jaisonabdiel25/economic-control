@@ -1,8 +1,8 @@
 import { SentMessageInfo } from "nodemailer";
 import { IMailService } from "../interface/IMailService";
 import { SendMailDto } from "../../../domain/dtos/sendMail.dto";
+import { CustomError } from "../../../config/CustomErrors";
 import { MailConfigService } from "../../../config/mail";
-import { CustomError } from "../../../config/CustomError";
 
 
 export class MailService implements IMailService {
@@ -16,7 +16,7 @@ export class MailService implements IMailService {
             const [error, registerUserDto] = SendMailDto.sendMail(sendMailDto);
 
             if (error.length > 0) throw CustomError.prevalidation(error[0]);
-            
+
             const mailConfig = new MailConfigService()
             return await mailConfig.sendEmail(registerUserDto!);
 
