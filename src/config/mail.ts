@@ -1,5 +1,4 @@
 import { createTransport, SentMessageInfo } from 'nodemailer'
-
 import { SendMailDto } from '../domain/dtos/sendMail.dto'
 import { envs } from './env'
 
@@ -23,7 +22,6 @@ export class MailConfigService {
             })
 
         } catch (error) {
-            console.log('Error in sending email', error)
             return false
         }
     }
