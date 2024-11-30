@@ -1,4 +1,6 @@
+import { ZodError } from "zod";
 import { CustomError } from "../../config/CustomErrors";
+import { sendMailSchema } from "../schema/sendMailSchema.shcema";
 
 
 export class SendMailDto {
@@ -12,12 +14,15 @@ export class SendMailDto {
         const { to, subject, html } = object
         try {
 
+            sendMailSchema.parse({ to, subject, html });
             return [
                 [],
                 new SendMailDto(to, subject, html)
             ];
         } catch (error) {
-
+            if (error instanceof ZodError) {
+                return [error.errors.map(issues => issues.message), undefined]
+            }
             throw CustomError.internal('error inesperado');
         }
     }
