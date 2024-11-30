@@ -1,17 +1,12 @@
 import { Request, Response } from "express"
 import { IMailService } from "../../infrastructure/services/interface/IMailService";
 import { CustomError } from "../../config/CustomErrors";
+import { PreconditionValidation } from "../../config/PreconditionValidation";
 export class MailController {
 
     constructor(
         private readonly _mailService: IMailService
     ) { }
-
-    private handleErrors(error: unknown, res: Response) {
-        if (error instanceof CustomError) return res.status(error.statusCode).send({ error: error.message });
-
-        if (error instanceof Error) return res.status(500).send({ error: error.message });
-    }
 
     sendMail = async (req: Request, res: Response) => {
         try {
@@ -19,7 +14,10 @@ export class MailController {
 
             res.json({ accepted: result.accepted, rejected: result.rejected })
         } catch (error) {
-            this.handleErrors(error, res)
+            if (error instanceof PreconditionValidation) {
+                PreconditionValidation.handleErrors(error, res);
+            }
+            CustomError.handleErrors(error, res);
         }
     }
 
