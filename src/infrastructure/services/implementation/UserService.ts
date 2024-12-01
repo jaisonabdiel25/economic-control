@@ -3,14 +3,12 @@ import { CustomError } from "../../../config/CustomErrors";
 import { PreconditionValidation } from "../../../config/PreconditionValidation";
 import { CreateUserDto } from "../../../domain/dtos/createUser.dto";
 import { IUserRepository } from "../../repositories";
-import { IMailService } from "../interface/IMailService";
 import { IUserService } from "../interface/IUserService";
 import { UserEntity, UserMapperResponse } from "../../../domain/mappers/UserMapperResponse";
 
 export class UserService implements IUserService {
     constructor(
-        private readonly _userRepository: IUserRepository,
-        private readonly _emailService: IMailService
+        private readonly _userRepository: IUserRepository
     ) { }
 
     async createUser(user: CreateUserDto): Promise<UserEntity> {
@@ -33,7 +31,7 @@ export class UserService implements IUserService {
             return UserMapperResponse.userMapperResponse(newUser);
 
         } catch (error) {
-
+            console.log(error);
             if (error instanceof CustomError) throw error;
             if (error instanceof PreconditionValidation) throw error;
             throw CustomError.internal();

@@ -11,6 +11,7 @@ export class UserRepository implements IUserRepository {
     constructor() { }
 
     async findUserByEmail(email: string): Promise<User | null> {
+        console.log(email);
         return await prisma.user.findUnique({ where: { email } })
     }
 
@@ -18,6 +19,7 @@ export class UserRepository implements IUserRepository {
         try {
             return await prisma.user.create({ data: { ...user } })
         } catch (error) {
+            console.log(error);
             throw CustomError.internal();
         }
     }

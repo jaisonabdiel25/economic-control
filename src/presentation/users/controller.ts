@@ -1,7 +1,8 @@
 import { Request, Response } from "express"
 import { CustomError } from "../../config/CustomErrors";
 import { PreconditionValidation } from "../../config/PreconditionValidation";
-import { IUserService } from "../../infrastructure/services/interface/IUserService";
+import { jwtAdapter } from "../../config/jwt";
+import { IUserService } from "../../infrastructure/services";
 export class UserController {
 
     constructor(
